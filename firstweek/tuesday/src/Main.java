@@ -7,7 +7,9 @@ public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             CSVReader csvReader = new CSVReader(scanner);
-            AverageCalculator averageCalculator = new AverageCalculator();
+            csvReader.result();
+            AverageCalculator averageCalculator = new AverageCalculator(scanner);
+            averageCalculator.result();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
