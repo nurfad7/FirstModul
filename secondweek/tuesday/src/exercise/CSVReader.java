@@ -52,7 +52,7 @@ public class CSVReader {
                 }
             }
         }
-        System.out.println("Total Sales: " + String.format("%.2f", totalSales));
+        System.out.println("Total Booking: " + String.format("%.2f", totalSales));
         System.out.println("Total Product Sold: " + totalProductSold);
         System.out.println("Most Bought Product:  " + productMostBought);
         System.out.println("Least Bought Product: " + productLeastBought);
