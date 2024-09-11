@@ -1,5 +1,7 @@
 package exercise;
 
+import exceptions.FormatColumnException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -20,11 +22,12 @@ public class CSVReader {
                 totalProductSold = 0;
         double totalSales = 0.0;
         Scanner scannerFile = new Scanner(new File(filePath));
+        boolean isHeader = false;
         while (scannerFile.hasNextLine()) {
             String line = scannerFile.nextLine();
             String[] row = line.split(",");
             if (row.length == 0) {
-                throw new FileNotFoundException();
+                throw new FormatColumnException();
             } else {
                 try {
                     int totalSold = Integer.parseInt(row[1]);
@@ -40,6 +43,11 @@ public class CSVReader {
                         productLeastBought = row[0];
                     }
                 } catch (NumberFormatException e) {
+                    if(!isHeader) {
+                        isHeader = true;
+                    } else {
+                        System.out.println("Some data have invalid format. It must be a number.");
+                    }
                     continue;
                 }
             }
