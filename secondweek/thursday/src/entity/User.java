@@ -1,13 +1,14 @@
 package entity;
 
-import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class User {
     private String id;
     private String userName;
     private String password;
-    private List<ToDoList> myToDo;
+    private Map<Integer, ToDo> myToDo = new HashMap<>();
 
     public User(String userName, String password) {
         this.id = UUID.randomUUID().toString();
@@ -33,5 +34,9 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public Map<Integer, ToDo> getMyToDo() {
+        return myToDo;
     }
 }

@@ -15,10 +15,10 @@ public class Main {
                 String password = app.getStringInput(scanner, "Password: ");
                 User userActive = app.loginUser(userName, password);
                 if (userActive == null) {
-                    System.out.println("Hello, Welcome to To-Do List Console App.");
+                    System.out.println("Wrong password.");
                     continue;
                 }
-                System.out.println("Welcome back, " + userName + "!");
+                System.out.println("Hi, " + userName + "!");
                 // menu with options to add a task, view tasks, delete a task, or log out
                 String userAction = app.browseMenu(scanner, userActive);
                 if (userAction.equals("logout")) {

@@ -1,5 +1,6 @@
 package registration;
 
+import entity.ToDo;
 import entity.User;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public abstract class Register implements Validation {
 
     public abstract void addUser(User user);
 
+    public abstract Map<Integer, ToDo> addToDoList(ToDo toDo, int newIndex);
+
     @Override
     public Map<String, User> validateUser(String userName, String password) {
         Map<String, User> validation = new HashMap<>();
@@ -25,7 +28,7 @@ public abstract class Register implements Validation {
         } else if (!userExist.getFirst().getPassword().equals(password)) {
             validation.put("wrong", null);
         } else {
-            validation.put("new", userExist.getFirst());
+            validation.put("registered", userExist.getFirst());
         }
         return validation;
     }
