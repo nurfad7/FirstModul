@@ -2,7 +2,6 @@ import main.Event;
 import main.Menu;
 import main.Ticket;
 import main.User;
-import tools.ScannerBuilder;
 
 import java.util.Scanner;
 
@@ -26,7 +25,7 @@ public class Main {
                 ScannerBuilder.getEmailInput(scanner,"Enter your email: "));
         System.out.println("______________________________________________________");
 
-        //Menu
+        //App
         System.out.println("Hi " + user.getName() + "!");
         String userChosenMenu = null;
         while (userChosenMenu == null || !userChosenMenu.equalsIgnoreCase("exit")) {

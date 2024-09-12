@@ -1,11 +1,10 @@
 package main;
 
-import tools.ScannerBuilder;
 import java.util.Scanner;
 
 public class Menu {
     public static String chooseMenu(Scanner scanner) {
-        System.out.println("Menu: "
+        System.out.println("App: "
                             + "\n1. Check available events"
                             + "\n2. Book ticket event"
                             + "\n3. Cancel Booking");
