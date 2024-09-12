@@ -6,8 +6,8 @@ public class Ticket {
     private String id;
     private String eventName;
     private double price;
-    //private final int MAX_AMOUNT = 1000;
     private boolean booked;
+    private User user;
 
     public Ticket(String eventName, double price) {
         this.id = UUID.randomUUID().toString();
@@ -28,11 +28,25 @@ public class Ticket {
         return price;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public boolean isBooked() {
         return booked;
     }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked;
+    public void setBooked(boolean isBooked) {
+        this.booked = isBooked;
+    }
+
+    public void setUser(User user) {
+        if(this.booked){
+            this.user = user;
+        }
+    }
+
+    public void regenerateID() {
+        this.id = UUID.randomUUID().toString();
     }
 }

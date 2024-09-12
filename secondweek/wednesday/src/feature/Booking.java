@@ -1,6 +1,7 @@
 package feature;
 
 import main.Ticket;
+import main.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,4 +17,6 @@ public abstract class Booking implements Confirmation {
     }
 
     public abstract long countRemainingTicket(String eventName);
+
+    public abstract long countBookedTicket(String eventName, User user);
 }
