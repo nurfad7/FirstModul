@@ -11,7 +11,7 @@ public class Main {
             // inside app
             while (!isClosed) {
                 System.out.println("Hello, Welcome to To-Do List Console App.");
-                String userName = app.getStringInput(scanner, "User Name: ");
+                String userName = app.getStringInput(scanner, "citizen.facility.User Name: ");
                 String password = app.getStringInput(scanner, "Password: ");
                 User userActive = app.loginUser(userName, password);
                 if (userActive == null) {

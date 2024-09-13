@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Welcome to Lollo ticket book.");
         System.out.println("Please fill some information to access our service.");
 
-        //User Identification
+        //citizen.facility.User Identification
         User user = new User(ScannerBuilder.getStringInput(scanner, "Enter your name: "),
                 ScannerBuilder.getEmailInput(scanner,"Enter your email: "));
         System.out.println("______________________________________________________");

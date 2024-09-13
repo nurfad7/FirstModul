@@ -6,7 +6,7 @@ public class Menu {
     public static String chooseMenu(Scanner scanner) {
         System.out.println("App: "
                             + "\n1. Check available events"
-                            + "\n2. Book ticket event"
+                            + "\n2. citizen.facility.Book ticket event"
                             + "\n3. Cancel Booking");
         return ScannerBuilder.getStringInput(scanner,
                 "Type menu number or 'exit' to end our service: ");
