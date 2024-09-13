@@ -14,21 +14,14 @@ public class Magazine extends Material{
 
     @Override
     protected String getType() {
-        return "";
+        return TYPE;
     }
 
     @Override
     protected void getDetailInfo() {
-
-    }
-
-    @Override
-    protected void setIsBorrowed() {
-
-    }
-
-    @Override
-    protected void setUser(User user) {
-
+        System.out.println("Magazine Detail:"
+                + "\nTitle: " + super.getTitle()
+                + "\nEdition: " + monthOfPublished + " " + super.getYearOfPublished()
+                + "\nStatus: " + (super.getIsBorrowed() ? "Borrowed" : "Available"));
     }
 }

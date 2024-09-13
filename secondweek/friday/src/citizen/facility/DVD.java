@@ -12,21 +12,15 @@ public class DVD extends Material{
 
     @Override
     protected String getType() {
-        return "";
+        return TYPE;
     }
 
     @Override
     protected void getDetailInfo() {
-
-    }
-
-    @Override
-    protected void setIsBorrowed() {
-
-    }
-
-    @Override
-    protected void setUser(User user) {
-
+        System.out.println("DVD Detail:"
+                + "\nTitle: " + super.getTitle()
+                + "\nGenre: " + genre
+                + "\nYear: " + super.getYearOfPublished()
+                + "\nStatus: " + (super.getIsBorrowed() ? "Borrowed" : "Available"));
     }
 }

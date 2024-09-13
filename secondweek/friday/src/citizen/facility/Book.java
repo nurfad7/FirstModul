@@ -12,21 +12,15 @@ public class Book extends Material{
 
     @Override
     protected String getType() {
-        return "";
+        return TYPE;
     }
 
     @Override
     protected void getDetailInfo() {
-
-    }
-
-    @Override
-    protected void setIsBorrowed() {
-
-    }
-
-    @Override
-    protected void setUser(User user) {
-
+        System.out.println("Book Detail:"
+                + "\nTitle: " + super.getTitle()
+                + "\nAuthor: " + author
+                + "\nYear: " + super.getYearOfPublished()
+                + "\nStatus: " + (super.getIsBorrowed() ? "Borrowed" : "Available"));
     }
 }

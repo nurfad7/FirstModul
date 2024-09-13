@@ -15,7 +15,7 @@ public class Library extends Register implements Validation {
             "book", "A01",
             "dvd","B04",
             "magazine","C02",
-            "scientific journal","D03");
+            "journal","D03");
 
     public boolean isClosed() {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -71,50 +71,34 @@ public class Library extends Register implements Validation {
         return scanner.nextLine();
     }
 
-    public int getIntegerInput(Scanner scanner, String description) {
-        boolean isTypedCorrectly = false;
-        int number = 0;
-        do {
-            System.out.print(description);
-            try {
-                number = scanner.nextInt();
-                isTypedCorrectly = true;
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
-                System.out.println("Invalid input. Please input number");
-            }
-        } while (!isTypedCorrectly);
-        return number;
-    }
-
     public String browseMenu(Scanner scanner, User user) {
         boolean isClosed = false;
         while (!isClosed) {
             System.out.println("Choose your action: "
-                    + "\n1. Search Materials"
+                    + "\n1. View Materials"
                     + "\n2. Borrow Materials"
                     + "\n3. Return Materials");
             String userAction = getStringInput(scanner,
-                    "Enter number 'logout' to logout: ");
+                    "Enter number or 'logout' to log out: ");
             switch (userAction) {
                 case "1":
-                    searchMaterial();
+                    viewMaterial(scanner, user);
                     break;
                 case "2":
-                    borrowMaterial(user, scanner);
+                    borrowMaterial(scanner, user);
                     break;
                 case "3":
-                    returnMaterial(user, scanner);
+                    returnMaterial(scanner, user);
                     break;
                 case "logout":
                     System.out.println("You have been logged out");
-                    System.out.println("______________________________________________");
                     isClosed = true;
                     break;
                 default:
                     System.out.println("Invalid input.");
                     break;
             }
+            System.out.println("______________________________________________");
         }
         return "logout";
     }
@@ -134,20 +118,111 @@ public class Library extends Register implements Validation {
         addMaterialToShelf("magazine", new Magazine("Forbes", 2024, Month.AUGUST));
         addMaterialToShelf("magazine", new Magazine("Forbes", 2024, Month.JULY));
 
-        addMaterialToShelf("scientific journal", new ScientificJournal("Identification of the ATP Binding Site of the F1-ATPase", 2011, "William A. B. Hirst, Andrew S. W. Smith, and Caroline A. Wilson", "Biological Chemistry", "0021-9258"));
-        addMaterialToShelf("scientific journal", new ScientificJournal("The landscape of cancer genes and mutational processes", 2015, "Chris Sander, Peter J. Campbell, et al.", "Nature", "0028-0836"));
-        addMaterialToShelf("scientific journal", new ScientificJournal("Single-cell transcriptomics reveals a dynamic niche for the developmental regulation of macrophage polarization", 2019, "Amy J. Parsons, Rachael E. Johnson, et al.", "Cell", "0092-8674"));
+        addMaterialToShelf("journal", new ScientificJournal("Identification of the ATP Binding Site of the F1-ATPase", 2011, "William A. B. Hirst, Andrew S. W. Smith, and Caroline A. Wilson", "Biological Chemistry", "0021-9258"));
+        addMaterialToShelf("journal", new ScientificJournal("The landscape of cancer genes and mutational processes", 2015, "Chris Sander, Peter J. Campbell, et al.", "Nature", "0028-0836"));
+        addMaterialToShelf("journal", new ScientificJournal("Single-cell transcriptomics reveals a dynamic niche for the developmental regulation of macrophage polarization", 2019, "Amy J. Parsons, Rachael E. Johnson, et al.", "Cell", "0092-8674"));
     }
 
     private void addMaterialToShelf(String type, Material material) {
         if(!MATERIAL_CODE.containsKey(type)){
             System.out.println("The type of material is unrecognized by the system");
         } else {
-            materials.put(type, material);
+            materials.put(MATERIAL_CODE.get(type) + (materials.size() + 1), material);
         }
     }
 
-    public void searchMaterial() {};
-    public void borrowMaterial(User user, Scanner scanner) {};
-    public void returnMaterial(User user, Scanner scanner) {};
+    private void viewMaterial(Scanner scanner, User user) {
+        boolean materialMenuIsClosed = false;
+        while (!materialMenuIsClosed) {
+            String userAction = getStringInput(scanner,
+                    "Enter type of material"
+                            + "\nor material number/ID"
+                            + "\nor 'menu' to come back to main menu."
+                            + "\n____________"
+                            + "\n| Book  \t |"
+                            + "\n| Magazine |"
+                            + "\n| Journal  |"
+                            + "\n| DVD \t   |"
+                            + "\n____________"
+                            + "\nType here: ").toLowerCase();
+            if (userAction.equalsIgnoreCase("menu")) {
+                System.out.println("______________________________________________");
+                materialMenuIsClosed = true;
+            } else {
+                getMaterial(scanner, user, userAction);
+            }
+        }
+    };
+
+    private void borrowMaterial(Scanner scanner, User user) {
+        String userInput = getStringInput(scanner, "Type the material ID to borrow or 'cancel' to cancel: ").toUpperCase();
+        if(userInput.equalsIgnoreCase("cancel")){
+            System.out.println("______________________________________________");
+        } else if (materials.containsKey(userInput)) {
+            if (materials.get(userInput).setIsBorrowed(user)) {
+                user.getUserMaterials().put(userInput, materials.get(userInput));
+                System.out.println("Material is successfully borrowed");
+                System.out.println("______________________________________________");
+            }
+        } else {
+            System.out.println("No material found");
+            System.out.println("______________________________________________");
+        }
+    };
+
+    private void returnMaterial(Scanner scanner, User user) {
+        if (user.getUserMaterials().isEmpty()) {
+            System.out.println("You haven't borrow anything");
+            System.out.println("______________________________________________");
+        } else {
+            getMaterial(user.getUserMaterials());
+            String userInput = getStringInput(scanner, "Type the material ID to return or 'cancel' to cancel: ").toUpperCase();
+            if(userInput.equalsIgnoreCase("cancel")){
+                System.out.println("______________________________________________");
+            } else if (materials.containsKey(userInput)) {
+                if (materials.get(userInput).setIsBorrowed(user)) {
+                    user.getUserMaterials().put(userInput, materials.remove(userInput));
+                    System.out.println("Material is successfully returned");
+                    System.out.println("______________________________________________");
+                }
+            } else {
+                System.out.println("No material found");
+                System.out.println("______________________________________________");
+            }
+        }
+    };
+
+    private void getMaterial(Scanner scanner, User user, String type) {
+        Map<String, Material> materialToDisplay = new HashMap<>();
+        if (MATERIAL_CODE.containsKey(type)) {
+            for(String key : materials.keySet()) {
+                if (key.contains(MATERIAL_CODE.get(type))) {
+                    materialToDisplay.put(key, materials.get(key));
+                }
+            }
+        } else {
+            if(materials.containsKey(type.toUpperCase())) {
+                materialToDisplay.put(type, materials.get(type.toUpperCase()));
+            }
+        }
+        if (materialToDisplay.isEmpty()) {
+            System.out.println("No material found");
+        } else if (materialToDisplay.size() == 1) {
+            materials.get(type.toUpperCase()).getDetailInfo();
+        } else {
+            for(String key : materialToDisplay.keySet()) {
+                System.out.print("ID: " + key);
+                materialToDisplay.get(key).getShortInfo();
+            }
+        }
+        System.out.println("______________________________________________");
+    }
+
+    private void getMaterial(Map<String, Material> materialToDisplay) {
+        for(String key : materialToDisplay.keySet()) {
+            System.out.print("ID: " + key);
+            materialToDisplay.get(key).getShortInfo();
+        }
+        System.out.println("______________________________________________");
+    }
 }

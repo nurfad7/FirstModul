@@ -1,7 +1,7 @@
 package citizen.facility;
 
 public class ScientificJournal extends Material {
-    private static final String TYPE = "scientific journal";
+    private static final String TYPE = "journal";
     private String author;
     private String field;
     private String numberOfISSN;
@@ -16,21 +16,17 @@ public class ScientificJournal extends Material {
 
     @Override
     protected String getType() {
-        return "";
+        return TYPE;
     }
 
     @Override
     protected void getDetailInfo() {
-
-    }
-
-    @Override
-    protected void setIsBorrowed() {
-
-    }
-
-    @Override
-    protected void setUser(User user) {
-
+        System.out.println("Scientific Journal Detail:"
+                + "\nTitle: " + super.getTitle()
+                + "\nAuthor: " + author
+                + "\nYear: " + super.getYearOfPublished()
+                + "\nISSN: " + numberOfISSN
+                + "\nClassification: " + field
+                + "\nStatus: " + (super.getIsBorrowed() ? "Borrowed" : "Available"));
     }
 }
