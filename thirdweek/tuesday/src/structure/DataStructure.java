@@ -9,6 +9,7 @@ public class DataStructure {
         stack.push("one");
         System.out.println(stack.pop());
         System.out.println(stack.peek());
+        System.out.println(stack.size());
 
         Queue queue = new Queue();
         queue.enqueue("one");
@@ -17,6 +18,7 @@ public class DataStructure {
         queue.enqueue("three");
         System.out.println(queue.dequeue());
         System.out.println(queue.dequeue());
+        System.out.println(queue.size());
 
         BinaryTree bt = new BinaryTree();
         bt.insert(8);

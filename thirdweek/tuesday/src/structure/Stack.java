@@ -17,7 +17,7 @@ public class Stack {
 
     public String pop(){
         if (isEmpty()) {
-            throw new CustomStackException();
+            throw new CustomStackException("Stack is empty");
         }
         String poppedVal = top.val;
         top = top.next;
@@ -26,9 +26,19 @@ public class Stack {
 
     public String peek(){
         if (isEmpty()) {
-            throw new CustomStackException();
+            throw new CustomStackException("Stack is empty");
         }
         return top.val;
+    }
+
+    public int size() {
+        int size = 0;
+        Node toSize = top;
+        while (toSize != null) {
+            toSize = toSize.next;
+            size++;
+        }
+        return size;
     }
 
     public boolean isEmpty() {

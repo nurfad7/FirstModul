@@ -6,7 +6,7 @@ public class Main {
         try (Scanner scanner = new Scanner(System.in)) {
             DataStructure.run();
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 }

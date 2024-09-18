@@ -40,6 +40,16 @@ public class Queue {
         return front.val;
     }
 
+    public int size() {
+        int size = 0;
+        Node toSize = front;
+        while (toSize != null) {
+            toSize = toSize.next;
+            size++;
+        }
+        return size;
+    }
+
     public boolean isEmpty() {
         return front == null;
     }
